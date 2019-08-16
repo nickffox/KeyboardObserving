@@ -9,11 +9,11 @@ import UIKit
 import Combine
 
 /// An object representing the keyboard
-final class Keyboard: ObservableObject {
+public final class Keyboard: ObservableObject {
 
   // MARK: - Published Properties
 
-  @Published var state: Keyboard.State = .default
+  @Published public var state: Keyboard.State = .default
 
   // MARK: - Private Properties
 
@@ -22,7 +22,7 @@ final class Keyboard: ObservableObject {
 
   // MARK: - Initializers
 
-  init(notificationCenter: NotificationCenter = .default) {
+  public init(notificationCenter: NotificationCenter = .default) {
     self.notificationCenter = notificationCenter
 
     // Observe keyboard notifications and transform them into state updates
@@ -41,12 +41,12 @@ final class Keyboard: ObservableObject {
 // MARK: - Nested Types
 extension Keyboard {
 
-  struct State {
+  public struct State {
 
     // MARK: - Properties
 
-    let animationDuration: TimeInterval
-    let height: CGFloat
+    public let animationDuration: TimeInterval
+    public let height: CGFloat
 
     // MARK: - Initializers
 
