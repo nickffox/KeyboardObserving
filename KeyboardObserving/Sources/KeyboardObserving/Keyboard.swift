@@ -1,0 +1,105 @@
+//
+//  Keyboard.swift
+//
+//  Created by Nicholas Fox on 8/16/19.
+//
+
+import Foundation
+import UIKit
+import Combine
+
+/// An object representing the keyboard
+final class Keyboard: ObservableObject {
+
+  // MARK: - Published Properties
+
+  @Published var state: Keyboard.State = .default
+
+  // MARK: - Private Properties
+
+  private var cancellables: Set<AnyCancellable> = []
+  private var notificationCenter: NotificationCenter
+
+  // MARK: - Initializers
+
+  init(notificationCenter: NotificationCenter = .default) {
+    self.notificationCenter = notificationCenter
+
+    // Observe keyboard notifications and transform them into state updates
+    notificationCenter.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
+      .merge(with: notificationCenter.publisher(for: UIResponder.keyboardWillHideNotification))
+      .compactMap(Keyboard.State.from(notification:))
+      .assign(to: \.state, on: self)
+      .store(in: &cancellables)
+  }
+
+  deinit {
+    cancellables.forEach { $0.cancel() }
+  }
+}
+
+// MARK: - Nested Types
+extension Keyboard {
+
+  struct State {
+
+    // MARK: - Properties
+
+    let animationDuration: TimeInterval
+    let height: CGFloat
+
+    // MARK: - Initializers
+
+    init(animationDuration: TimeInterval, height: CGFloat) {
+      self.animationDuration = animationDuration
+      self.height = height
+    }
+
+    // MARK: - Static Properties
+
+    fileprivate static let `default` = Keyboard.State(animationDuration: 0.25, height: 0)
+
+    // MARK: - Static Methods
+
+    static func from(notification: Notification) -> Keyboard.State? {
+      return from(
+        notification: notification,
+        safeAreaInsets: UIApplication.shared.windows.first?.safeAreaInsets,
+        screen: .main
+      )
+    }
+
+    // NOTE: A testable version of the transform that injects the dependencies.
+    static func from(
+      notification: Notification,
+      safeAreaInsets: UIEdgeInsets?,
+      screen: UIScreen
+    ) -> Keyboard.State? {
+      guard let userInfo = notification.userInfo else { return nil }
+      // NOTE: We could eventually get the aniamtion curve here too.
+
+      // Get the duration of the keyboard animation
+      let animationDuration =
+        (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+        ?? 0.25
+
+      // Get keyboard height
+      var height: CGFloat = 0
+      if let keyboardFrameValue: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        // If the rectangle is at the bottom of the screen, set the height to 0.
+        if keyboardFrame.origin.y == screen.bounds.height {
+          height = 0
+        } else {
+          height = keyboardFrame.height - (safeAreaInsets?.bottom ?? 0)
+        }
+      }
+
+      return Keyboard.State(
+        animationDuration: animationDuration,
+        height: height
+      )
+    }
+  }
+}
+
