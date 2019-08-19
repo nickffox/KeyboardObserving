@@ -27,7 +27,7 @@ It also provides a `KeyboardObservingView` that adjusts it's content to avoid th
 
 In your SceneDelegate.swift file, add a `Keyboard` property, and add it to your scene's environment.
 
-```
+```swift
 import KeyboardObserving
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 Add your view's content inside of a `KeyboardObservingView` .
 
-```
+```swift
 import KeyboardObserving
 
 struct YourView: View {
