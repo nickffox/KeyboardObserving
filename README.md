@@ -1,4 +1,4 @@
-# Keyboard Observing ⌨️
+# ⌨️ Keyboard Observing
 ### A Combine-based solution for observing and avoiding the keyboard in SwiftUI.
 
 ![Swift Support](https://img.shields.io/badge/Swift-5.1-orange.svg) 
