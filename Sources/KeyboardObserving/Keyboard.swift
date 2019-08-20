@@ -27,7 +27,6 @@ public final class Keyboard: ObservableObject {
 
     // Observe keyboard notifications and transform them into state updates
     notificationCenter.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
-      .merge(with: notificationCenter.publisher(for: UIResponder.keyboardWillHideNotification))
       .compactMap(Keyboard.State.from(notification:))
       .assign(to: \.state, on: self)
       .store(in: &cancellables)
@@ -77,7 +76,6 @@ extension Keyboard {
     ) -> Keyboard.State? {
       guard let userInfo = notification.userInfo else { return nil }
       // NOTE: We could eventually get the aniamtion curve here too.
-
       // Get the duration of the keyboard animation
       let animationDuration =
         (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
@@ -85,8 +83,7 @@ extension Keyboard {
 
       // Get keyboard height
       var height: CGFloat = 0
-      if let keyboardFrameValue: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-        let keyboardFrame = keyboardFrameValue.cgRectValue
+      if let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
         // If the rectangle is at the bottom of the screen, set the height to 0.
         if keyboardFrame.origin.y == screen.bounds.height {
           height = 0

@@ -21,11 +21,8 @@ public struct KeyboardObservingView<Content: View>: View {
   }
 
   public var body: some View {
-    VStack {
       content
-      Spacer()
-        .frame(height: keyboard.state.height)
-    }
-    .animation(.easeInOut(duration: keyboard.state.animationDuration))
+        .padding([.bottom], keyboard.state.height)
+        .animation(.easeOut(duration: keyboard.state.animationDuration))
   }
 }
