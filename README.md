@@ -9,7 +9,7 @@
 
 This package give you the ability to observe changes to keyboard state using the `Keyboard` `ObservableObject` type.
 
-It also provides a `KeyboardObservingView` that adjusts it's content to avoid the keyboard.
+It also provides a `KeyboardObservingView` that adjusts it's content to avoid the keyboard, and a `.keyboardObserving()` ViewModifier that adjusts the modified view to avoid the keyboard.
 
 ![Demo](./images/demo.gif)
 
@@ -20,7 +20,25 @@ It also provides a `KeyboardObservingView` that adjusts it's content to avoid th
 - Xcode 11+
 - Swift 5.1+
 
-## Getting Started
+## Using the `KeyboardObserving` ViewModifier
+
+Add the `.keyboardObserving()` ViewModifier to your custom SwiftUI view. 
+
+```swift
+import KeyboardObserving
+
+struct YourView: View {
+
+  var body: some View {
+    VStack {
+      // Your Content Here
+    }
+    .keyboardObserving()
+  }
+}
+```
+
+## Using `Keyboard` and `KeyboardObservingView`
 
 
 ### 1. Add a Keyboard to your environment

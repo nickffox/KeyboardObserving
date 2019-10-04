@@ -23,6 +23,7 @@ public struct KeyboardObservingView<Content: View>: View {
   public var body: some View {
       content
         .padding([.bottom], keyboard.state.height)
+        .edgesIgnoringSafeArea((keyboard.state.height > 0) ? [.bottom] : [])
         .animation(.easeOut(duration: keyboard.state.animationDuration))
   }
 }

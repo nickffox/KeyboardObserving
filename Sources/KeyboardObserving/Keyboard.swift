@@ -63,7 +63,6 @@ extension Keyboard {
     static func from(notification: Notification) -> Keyboard.State? {
       return from(
         notification: notification,
-        safeAreaInsets: UIApplication.shared.windows.first?.safeAreaInsets,
         screen: .main
       )
     }
@@ -71,7 +70,6 @@ extension Keyboard {
     // NOTE: A testable version of the transform that injects the dependencies.
     static func from(
       notification: Notification,
-      safeAreaInsets: UIEdgeInsets?,
       screen: UIScreen
     ) -> Keyboard.State? {
       guard let userInfo = notification.userInfo else { return nil }
@@ -88,7 +86,7 @@ extension Keyboard {
         if keyboardFrame.origin.y == screen.bounds.height {
           height = 0
         } else {
-          height = keyboardFrame.height - (safeAreaInsets?.bottom ?? 0)
+          height = keyboardFrame.height
         }
       }
 
