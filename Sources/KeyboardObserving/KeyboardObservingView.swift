@@ -21,9 +21,20 @@ public struct KeyboardObservingView<Content: View>: View {
   }
 
   public var body: some View {
-      content
-        .padding([.bottom], keyboard.state.height)
-        .edgesIgnoringSafeArea((keyboard.state.height > 0) ? [.bottom] : [])
-        .animation(.easeOut(duration: keyboard.state.animationDuration))
+  
+  // for some reason, this can cause stuttering
+  // in mac catalyst applications
+  // and we don't need to observe the keyboard
+  // in mac catalist anyway
+  // so only return the content in mac catalyst
+  // (I think it's the animation, but I'm not sure)
+  #if targetEnvironment(macCatalyst)
+  return content
+  #else
+  return content
+      .padding([.bottom], keyboard.state.height)
+      .edgesIgnoringSafeArea((keyboard.state.height > 0) ? [.bottom] : [])
+      .animation(.easeOut(duration: keyboard.state.animationDuration))
+  #endif
   }
 }
