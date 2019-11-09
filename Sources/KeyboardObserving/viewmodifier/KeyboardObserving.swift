@@ -10,13 +10,13 @@ import UIKit
 
 
 struct KeyboardObserving: ViewModifier {
-
+  var padding: CGFloat = 8
   @State var keyboardHeight: CGFloat = 0
   @State var keyboardAnimationDuration: Double = 0
 
   func body(content: Content) -> some View {
     content
-      .padding([.bottom], keyboardHeight)
+      .padding([.bottom], keyboardHeight > 0 ? keyboardHeight + padding : 0)
       .edgesIgnoringSafeArea((keyboardHeight > 0) ? [.bottom] : [])
       .animation(.easeOut(duration: keyboardAnimationDuration))
       .onReceive(
