@@ -3,7 +3,20 @@
 
 ![Swift Support](https://img.shields.io/badge/Swift-5.1-orange.svg) 
 ![Platform](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/KeyboardObserving.svg)](https://img.shields.io/cocoapods/v/KeyboardObserving.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen.svg)](https://swift.org/package-manager/)
+
+
+## Table of Contents
+- [About](#about)
+- [Requirements](#requirements)
+- [Installation](#installation)
+    - [CocoaPods](#cocoapods)
+    - [Swift Package Manager](#swift-package-manager)
+- [Usage](#usage)
+    - [KeyboardObserving](#using-the-keyboardobserving-viewmodifier)
+    - [Keyboard and KeyboardObservingView](#using-keyboard-and-keyboardobservingview)
+
 
 ## About
 
@@ -20,7 +33,44 @@ It also provides a `KeyboardObservingView` that adjusts it's content to avoid th
 - Xcode 11+
 - Swift 5.1+
 
-## Using the `KeyboardObserving` ViewModifier
+## Installation
+
+This package can be installed using CocoaPods or Swift Package Manager.
+
+#### CocoaPods
+
+Add the following line to your `Podfile`:
+
+```
+pod 'KeyboardObserving'
+```
+
+For more information about how to get started with CocoaPods, check out the [CocoaPods website](https://cocoapods.org/).
+
+#### Swift Package Manager
+
+Add the following to your `Package.swift` file:
+
+```
+dependencies: [
+    .package(
+        url: "https://github.com/nickffox/KeyboardObserving.git", 
+        .branch:("master")
+    )
+]
+```
+
+If you're using SPM through Xcode:
+
+1. Go to `File > Swift Packages > Add Package Dependency` 
+2. Enter https://github.com/nickffox/KeyboardObserving
+3. Select the `branch` option, and type "master"
+
+For more information about how to get started with the Swift Package Manager, check out the [Official SPM website](https://swift.org/package-manager/) or the [SPM project on GitHub](https://github.com/apple/swift-package-manager).
+
+## Usage
+
+#### Using the `KeyboardObserving` ViewModifier
 
 Add the `.keyboardObserving()` ViewModifier to your custom SwiftUI view. 
 
@@ -38,10 +88,10 @@ struct YourView: View {
 }
 ```
 
-## Using `Keyboard` and `KeyboardObservingView`
+#### Using `Keyboard` and `KeyboardObservingView`
 
 
-### 1. Add a Keyboard to your environment
+##### 1. Add a Keyboard to your environment
 
 In your SceneDelegate.swift file, add a `Keyboard` property, and add it to your scene's environment.
 
@@ -76,7 +126,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 ```
 
-### 2. Create your View
+##### 2. Create your View
 
 Add your view's content inside of a `KeyboardObservingView` .
 
