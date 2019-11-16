@@ -45,7 +45,7 @@ Add the following line to your `Podfile`:
 pod 'KeyboardObserving'
 ```
 
-For more information about how to get started with CocoaPods, check out the [CocoaPods website](https://cocoapods.org/)!
+For more information about how to get started with CocoaPods, check out the [CocoaPods website](https://cocoapods.org/).
 
 #### Swift Package Manager
 
