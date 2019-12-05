@@ -11,6 +11,7 @@ import UIKit
 
 struct KeyboardObserving: ViewModifier {
 
+  var offset: CGFloat
   @State var keyboardHeight: CGFloat = 0
   @State var keyboardAnimationDuration: Double = 0
 
@@ -39,7 +40,7 @@ struct KeyboardObserving: ViewModifier {
       keyboardHeight = 0
     } else {
       // IMPORTANT: This height will _include_ the SafeAreaInset height.
-      keyboardHeight = keyboardFrame.height
+      keyboardHeight = keyboardFrame.height + offset
     }
   }
 }
