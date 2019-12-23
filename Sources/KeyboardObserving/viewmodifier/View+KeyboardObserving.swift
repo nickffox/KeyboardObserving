@@ -8,7 +8,7 @@ import SwiftUI
 
 
 extension View {
-  public func keyboardObserving() -> some View {
-    self.modifier(KeyboardObserving())
+  public func keyboardObserving(offset: CGFloat = 0.0) -> some View {
+    self.modifier(KeyboardObserving(offset: offset))
   }
 }
