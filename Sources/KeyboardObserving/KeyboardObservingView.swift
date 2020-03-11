@@ -31,10 +31,11 @@ public struct KeyboardObservingView<Content: View>: View {
   #if targetEnvironment(macCatalyst)
   return content
   #else
-  return content
+  return withAnimation(.easeOut(duration: keyboard.state.animationDuration)) {
+     content
       .padding([.bottom], keyboard.state.height)
       .edgesIgnoringSafeArea((keyboard.state.height > 0) ? [.bottom] : [])
-      .animation(.easeOut(duration: keyboard.state.animationDuration))
+     }
   #endif
   }
 }

@@ -16,15 +16,16 @@ struct KeyboardObserving: ViewModifier {
   @State var keyboardAnimationDuration: Double = 0
 
   func body(content: Content) -> some View {
+    return withAnimation(.easeOut(duration: keyboardAnimationDuration)) {
     content
       .padding([.bottom], keyboardHeight)
       .edgesIgnoringSafeArea((keyboardHeight > 0) ? [.bottom] : [])
-      .animation(.easeOut(duration: keyboardAnimationDuration))
       .onReceive(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
           .receive(on: RunLoop.main),
         perform: updateKeyboardHeight
       )
+    }
   }
 
   func updateKeyboardHeight(_ notification: Notification) {

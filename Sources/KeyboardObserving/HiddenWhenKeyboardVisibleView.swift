@@ -22,10 +22,10 @@ public struct HiddenWhenKeyboardVisibleView<Content: View>: View {
   #if targetEnvironment(macCatalyst)
   return content
   #else
-
-    return content
+  return withAnimation(.easeOut(duration: keyboard.state.animationDuration)) {
+    content
         .opacity(keyboard.state.height == 0 ? 1.0 : 0.0)
-        .animation(.easeOut(duration: keyboard.state.animationDuration))
+    }
   #endif
   }
 }
