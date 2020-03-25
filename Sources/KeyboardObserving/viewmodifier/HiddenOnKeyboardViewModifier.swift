@@ -12,7 +12,7 @@ struct HiddenOnKeyboardViewModifier: ViewModifier {
 
   let transition: AnyTransition
 
-  public func body(content: Content) -> some View {
+  func body(content: Content) -> some View {
     Group {
       #if targetEnvironment(macCatalyst)
       content
