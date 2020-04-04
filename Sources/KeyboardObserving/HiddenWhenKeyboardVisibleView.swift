@@ -1,6 +1,5 @@
 //
-//  File.swift
-//  
+//  HiddenWhenKeyboardVisibleView.swift
 //
 //  Created by Joseph A. Wardell on 10/24/19.
 //
