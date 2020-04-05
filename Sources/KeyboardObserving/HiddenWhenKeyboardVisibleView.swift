@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(swift, deprecated: 0.0.1, message: "Deprecated in 0.2.2")
 public struct HiddenWhenKeyboardVisibleView<Content: View>: View {
 
   @EnvironmentObject var keyboard: Keyboard
