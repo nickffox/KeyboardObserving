@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'KeyboardObserving'
-  spec.version = '0.3.0'
+  spec.version = '1.0.0'
   spec.license = { type: 'MIT' }
   spec.homepage = 'https://github.com/nickffox/KeyboardObserving'
   spec.authors = { 'Nick Fox' => 'nicholas.f.fox@gmail.com' }
