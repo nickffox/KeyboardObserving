@@ -16,8 +16,8 @@ public struct KeyboardObservingView<Content: View>: View {
 
   let content: Content
 
-  public init(@ViewBuilder builder: () -> Content) {
-    self.content = builder()
+  public init(@ViewBuilder builder: (Keyboard) -> Content) {
+    self.content = builder(keyboard)
   }
 
   public var body: some View {
