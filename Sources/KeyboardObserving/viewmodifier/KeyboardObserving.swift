@@ -17,9 +17,8 @@ struct KeyboardObserving: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .padding([.bottom], keyboardHeight)
+      .offset(x: 0, y: -keyboardHeight)
       .edgesIgnoringSafeArea((keyboardHeight > 0) ? [.bottom] : [])
-      .animation(.easeOut(duration: keyboardAnimationDuration))
       .onReceive(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
           .receive(on: RunLoop.main),
@@ -35,12 +34,15 @@ struct KeyboardObserving: ViewModifier {
 
     guard let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
       else { return }
-    // If the top of the frame is at the bottom of the screen, set the height to 0.
-    if keyboardFrame.origin.y == UIScreen.main.bounds.height {
-      keyboardHeight = 0
-    } else {
-      // IMPORTANT: This height will _include_ the SafeAreaInset height.
-      keyboardHeight = keyboardFrame.height + offset
+    
+    withAnimation(.easeInOut(duration: keyboardAnimationDuration)) {
+        // If the top of the frame is at the bottom of the screen, set the height to 0.
+        if keyboardFrame.origin.y == UIScreen.main.bounds.height {
+          keyboardHeight = 0
+        } else {
+          // IMPORTANT: This height will _include_ the SafeAreaInset height.
+          keyboardHeight = keyboardFrame.height + offset
+        }
     }
   }
 }
