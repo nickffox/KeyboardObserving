@@ -19,7 +19,7 @@ struct KeyboardObserving: ViewModifier {
     content
       .padding([.bottom], keyboardHeight)
       .edgesIgnoringSafeArea((keyboardHeight > 0) ? [.bottom] : [])
-      .animation(.easeOut(duration: keyboardAnimationDuration))
+      .animation(.easeOut(duration: keyboardAnimationDuration), value: keyboardHeight)
       .onReceive(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
           .receive(on: RunLoop.main),

@@ -20,7 +20,7 @@ struct HiddenOnKeyboardViewModifier: ViewModifier {
       if keyboard.state.height == 0 {
         content
           .transition(transition)
-          .animation(.easeOut(duration: keyboard.state.animationDuration))
+          .animation(.easeOut(duration: keyboard.state.animationDuration), value: keyboard.state.height)
       } else {
         EmptyView()
       }
